@@ -38,10 +38,6 @@ TennisApp/
 │   │   ├── index.js         # React entry point
 │   │   └── index.css        # Global styles
 │   └── package.json         # Node.js dependencies
-├── start_backend.bat        # Windows batch file for backend
-├── start_frontend.bat       # Windows batch file for frontend
-├── start_backend.sh         # Git Bash script for backend
-├── start_frontend.sh        # Git Bash script for frontend
 └── README.md               # This file
 ```
 
@@ -52,9 +48,6 @@ TennisApp/
 - Python 3.8+ installed
 - Node.js 14+ installed
 - npm or yarn package manager
-
-### Quick Start (Recommended)
-
 
 ### Manual Setup
 
