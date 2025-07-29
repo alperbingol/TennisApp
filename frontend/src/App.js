@@ -9,6 +9,8 @@ function App() {
 
   const API_BASE_URL = 'http://localhost:8000';
 
+  const winner = players.find(player => player.winner);
+
   // Fetch players data on component mount
   useEffect(() => {
     fetchPlayers();
@@ -29,6 +31,10 @@ function App() {
   };
 
   const incrementScore = async (playerName) => {
+    if (winner) {
+      setError('Match already has a winner! Please reset to start a new match.');
+      return;
+    }
     try {
       await axios.post(`${API_BASE_URL}/players/${playerName}/increment`);
       // Fetch the full updated player list after increment
@@ -60,6 +66,8 @@ function App() {
     );
   }
 
+ 
+
   return (
     <div className="tennis-app">
       <h1 className="app-title">🎾 Tennis App</h1>
@@ -69,6 +77,8 @@ function App() {
           {error}
         </div>
       )}
+
+      {winner && <div>Winner: {winner.name}</div>}
 
       <div className="scoreboard-header">
         <span className="header-name"></span>
@@ -111,12 +121,17 @@ function App() {
         ))}
       </div>
 
+       
+  
+
       <button 
         className="reset-btn"
         onClick={resetScores}
       >
         Reset All Scores
       </button>
+
+ 
     </div>
   );
 }

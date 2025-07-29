@@ -31,12 +31,20 @@ class PlayerScore(BaseModel):
 
 # In-memory storage (in a real app, you'd use a database)
 players_data = {
-    "Alcaraz": {"name": "Alcaraz", "points": 0, "current_set_games": 0, "sets": [], "tiebreak": False, "tiebreak_points": 0, "advantage": False},
-    "Sinner": {"name": "Sinner", "points": 0, "current_set_games": 0, "sets": [], "tiebreak": False, "tiebreak_points": 0, "advantage": False}
+    "Alcaraz": {"name": "Alcaraz", "points": 0, "current_set_games": 0, "sets": [], "tiebreak": False, "tiebreak_points": 0, "advantage": False, "winner": False},
+    "Sinner": {"name": "Sinner", "points": 0, "current_set_games": 0, "sets": [], "tiebreak": False, "tiebreak_points": 0, "advantage": False, "winner": False}
 }
 
 def get_opponent(player_name: str):
     return [p for p in players_data if p != player_name][0]
+
+def check_match_win(player, opponent):
+    count = sum(1 for set1, set2 in zip(player["sets"],opponent["sets"]) if set1 > set2)
+    if count == 3:
+        player["winner"] = True
+        opponent["winner"] = False
+        return True
+    return False
 
 def check_set_win(player, opponent):
     # Normal set win (not tiebreak)
@@ -53,6 +61,7 @@ def check_set_win(player, opponent):
         opponent["tiebreak"] = False
         player["tiebreak_points"] = 0
         opponent["tiebreak_points"] = 0
+        check_match_win(player, opponent)
         return True
     return False
 
@@ -70,6 +79,7 @@ def check_tiebreak_win(player, opponent):
         opponent["tiebreak"] = False
         player["tiebreak_points"] = 0
         opponent["tiebreak_points"] = 0
+        check_match_win(player, opponent)
         return True
     return False
 
@@ -82,6 +92,7 @@ async def get_players():
     """Get all players and their scores"""
     return list(players_data.values())
 
+# Not used currently
 @app.get("/players/{player_name}")
 async def get_player(player_name: str):
     """Get a specific player's score"""
@@ -165,6 +176,7 @@ async def reset_scores():
         player["tiebreak"] = False
         player["tiebreak_points"] = 0
         player["advantage"] = False
+        player["winner"] = False
     return list(players_data.values())
 
 if __name__ == "__main__":
