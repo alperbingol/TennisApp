@@ -120,7 +120,7 @@ async def increment_score(player_name: str):
     if player["current_set_games"] == 6 and opponent["current_set_games"] == 6:
         player["tiebreak"] = True
         opponent["tiebreak"] = True
-        player["tiebreak_points"] = 0
+        player["tiebreak_points"] = 1
         opponent["tiebreak_points"] = 0
         return player
 

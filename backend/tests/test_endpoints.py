@@ -31,3 +31,18 @@ def test_get_nonexistent_player():
     
     assert response.status_code == 404  # Should be "Not Found"
     assert "Player not found" in response.json()["detail"]
+
+def test_increment_score_basic():
+    """Test incrementing a player's score"""
+    # First, let's see the initial score
+    response = client.get("/players/Alcaraz")
+    
+    # Increment the score
+    client.post("/players/Alcaraz/increment")
+    
+    # Check the new score
+    response = client.get("/players/Alcaraz")
+    new_score = response.json()["points"]
+    
+    assert new_score == 15  # Should go from 0 to 15
+
