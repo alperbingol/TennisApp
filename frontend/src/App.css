@@ -1,4 +1,4 @@
-/* Additional App-specific styles can be added here */
+
 
 /* Use flexbox for dynamic horizontal expansion */
 .scoreboard-header, .player-info {
@@ -6,7 +6,12 @@
   flex-direction: row;          /* Arrange children in a row */
   align-items: center;          /* Vertically center items */
   gap: 0;                       /* No gap between columns */
-  flex-wrap: nowrap;            /* Prevent wrapping to next line */
+  flex-wrap: nowrap;         /* Prevent wrapping to next line */
+}
+
+/* Align header with player cards by matching the card's left padding */
+.scoreboard-header {
+  padding-left: 25px;           /* Match .player-card padding */
 }
 
 .header-name, .player-name {
@@ -15,27 +20,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 0 0 120px;
 }
 
 .header-set, .player-set-square {
   width: 60px;                  /* Fixed width for each set column */
-  min-width: 60px;
+  flex: 0 0 60px;
   text-align: center;
-  display: inline-block;
 }
 
 .header-games, .player-games-square {
   width: 60px;                  /* Fixed width for games column */
-  min-width: 60px;
+  flex: 0 0 60px;
   text-align: center;
-  display: inline-block;
 }
 
 .header-points, .player-score {
   width: 60px;                  /* Fixed width for points column */
-  min-width: 60px;
+  flex: 0 0 60px;
   text-align: center;
-  display: inline-block;
 }
 
 .player-set-square,
@@ -45,12 +48,14 @@
   font-weight: bold;
   color: white;
   background: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
+  padding: 10px 0;
   border-radius: 10px;
   text-align: center;
-  display: inline-block;
   margin: 0 2px;
 }
+
+
+
 
 .increment-btn {
   margin-left: 0;

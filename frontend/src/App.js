@@ -88,7 +88,6 @@ function App() {
         ))}
         <span className="header-games">Games</span>
         <span className="header-points">Points</span>
-        <span className="header-action"></span>
       </div>
 
       <div className="players-container">
