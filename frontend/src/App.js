@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import Loading from './components/loading';
+
+
 
 function App() {
   const [players, setPlayers] = useState([]);
@@ -57,13 +60,10 @@ function App() {
     }
   };
 
+
+
   if (loading) {
-    return (
-      <div className="tennis-app">
-        <h1 className="app-title">🎾 Tennis App</h1>
-        <p className="loading">Loading players...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
  
