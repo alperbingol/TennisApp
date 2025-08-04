@@ -4,13 +4,7 @@ These test the business rules directly without any HTTP/web dependencies.
 They're fast, focused, and easy to understand.
 """
 
-import sys
-import os
-
-# Add the backend directory to sys.path so we can import modules
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from tennis_game import award_point_to_player, check_match_win, check_set_win, check_tiebreak_win
+from tennis_backend.tennis_game import award_point_to_player, check_match_win, check_set_win, check_tiebreak_win
 
 
 def create_fresh_player(name="Player"):

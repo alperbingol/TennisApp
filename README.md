@@ -1,108 +1,155 @@
 # 🎾 Tennis App
 
-A full-stack tennis score tracking application built with FastAPI (backend) and React (frontend). Track scores for tennis players Alcaraz and Sinner with a beautiful, modern UI.
+A professional tennis scoring API built with FastAPI and modern Python packaging. Features comprehensive tennis game logic including regular scoring, deuce/advantage, sets, tiebreaks, and match completion with a React frontend for real-time score tracking.
 
 ## Features
 
+### 🎾 Tennis Logic
+- **Complete Tennis Rules**: Accurate scoring (0-15-30-40), deuce/advantage, games, sets
+- **Tiebreak Support**: Automatic tiebreak at 6-6 with proper tiebreak scoring  
+- **Match Completion**: Best-of-5 sets with winner detection
+- **Professional API**: Clean FastAPI endpoints for all tennis operations
+
+### 🌐 Web Interface  
 - **Real-time Score Tracking**: Click buttons to increment scores for each player
 - **Modern UI**: Beautiful gradient design with smooth animations
 - **Reset Functionality**: Reset all scores to zero with one click
-- **Responsive Design**: Works on desktop, mobile devices in future
-- **Error Handling**: Graceful error handling with user-friendly messages
+- **Responsive Design**: Works on desktop and mobile devices (future plan)
+
+### 🧪 Testing & Quality
+- **Comprehensive Test Suite**: Unit tests, API tests, and integration tests
+- **Professional Structure**: Installable Python package with clean imports
+- **Development Ready**: Hot reload, linting, and modern development workflow
 
 ## Tech Stack
 
 ### Backend
 - **FastAPI**: Modern, fast web framework for building APIs
-- **Uvicorn**: ASGI server for running FastAPI
+- **Python 3.8+**: Professional package structure with pyproject.toml
 - **Pydantic**: Data validation using Python type annotations
+- **Uvicorn**: ASGI server for running FastAPI
 
-### Frontend
+### Frontend  
 - **React**: JavaScript library for building user interfaces
 - **Axios**: HTTP client for API communication
 - **CSS3**: Modern styling with gradients and animations
+
+### Development & Testing
+- **pytest**: Comprehensive test suite with unit, API, and integration tests
+- **Modern Packaging**: pip-installable package with clean dependency management
+- **Professional Structure**: Separation of concerns with clean imports
 
 ## Project Structure
 
 ```
 TennisApp/
-├── backend/
-│   ├── main.py              # FastAPI application
-│   └── requirements.txt     # Python dependencies
-├── frontend/
-│   ├── public/
-│   │   └── index.html       # Main HTML file
+├── pyproject.toml              # Modern Python package configuration
+├── tennis_backend/             # Main Python package  
+│   ├── __init__.py            # Package marker
+│   ├── main.py                # FastAPI application
+│   ├── tennis_game.py         # Core tennis logic (pure Python)
+│   ├── TESTING_GUIDE.md       # Comprehensive testing documentation
+│   └── tests/                 # Test suite
+│       ├── test_tennis_unit.py     # Unit tests (tennis logic)
+│       ├── test_endpoints.py       # API contract tests  
+│       ├── test_tennis_integration.py # Full workflow tests
+│       └── conftest.py            # pytest configuration
+├── frontend/                   # React application
 │   ├── src/
-│   │   ├── App.js           # Main React component
-│   │   ├── App.css          # App-specific styles
-│   │   ├── index.js         # React entry point
-│   │   └── index.css        # Global styles
-│   └── package.json         # Node.js dependencies
-└── README.md               # This file
+│   │   ├── App.js             # Main React component
+│   │   ├── App.css            # Styling
+│   │   └── index.js           # React entry point
+│   └── package.json           # Frontend dependencies
+└── README.md                  # This file
 ```
 
-## Setup Instructions
+## 🚀 Quick Start
 
 ### Prerequisites
+- **Python 3.8+** 
+- **Node.js 14+** 
+- **Git** (to clone the repository)
 
-- Python 3.8+ installed
-- Node.js 14+ installed
-- npm or yarn package manager
+### 🏃‍♂️ One-Time Setup
 
-### Manual Setup
+**1. Clone and enter the project:**
+```bash
+git clone <your-repo-url>
+cd TennisApp
+```
 
-#### Backend Setup
+**2. Set up Python backend (one command!):**
+```bash
+# Create and activate virtual environment
+python -m venv .venv
+.\.venv\Scripts\activate              # Windows
+# source .venv/bin/activate           # macOS/Linux
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
+# Install the tennis backend package with all dependencies
+pip install -e .[dev]
+```
 
-2. Create a virtual environment (recommended):
-   ```bash
-   python -m venv venv
-   ```
+**3. Set up React frontend:**
+```bash
+cd frontend
+npm install
+cd ..
+```
 
-3. Activate the virtual environment:
-     ```
-     .\.venv\Scripts\activate
-     ```
-     ```
-     source venv/Scripts/activate
-     ```
+### ⚡ Daily Usage (After Setup)
 
-4. Install Python dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+**Start the backend:**
+```bash
+# Activate environment (if not already active)
+.\.venv\Scripts\activate
 
-5. Run the FastAPI server:
-   ```
-   python main.py
-   ```
-   ```
-   uvicorn backend.main:app --reload
-   ```
-   The backend will be available at `http://localhost:8000`
+# Start the API server (works from any directory!)
+uvicorn tennis_backend.main:app --reload
+```
+**Backend runs at:** `http://localhost:8000`
 
-#### Frontend Setup
+**Start the frontend (new terminal):**
+```bash
+cd frontend
+npm start
+```
+**Frontend runs at:** `http://localhost:3000`
 
-1. Open a new terminal and navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
+## 🧪 Testing
 
-2. Install Node.js dependencies:
-   ```bash
-   npm install
-   ```
+**Run the comprehensive test suite:**
 
-3. Start the React development server:
-   ```bash
-   npm start
-   ```
+```bash
+# Activate environment
+.\.venv\Scripts\activate
 
-   The frontend will be available at `http://localhost:3000`
+# Run all tests
+pytest tennis_backend/tests/ -v
+
+# Run specific test types
+pytest tennis_backend/tests/test_tennis_unit.py -v      # Unit tests (fastest)
+pytest tennis_backend/tests/test_endpoints.py -v       # API tests  
+pytest tennis_backend/tests/test_tennis_integration.py -v # Integration tests
+```
+
+## 🔧 Development
+
+**The package structure supports professional development:**
+
+```bash
+# Your package is installed in editable mode, so changes are immediate
+# Edit any file in tennis_backend/ and changes are reflected instantly
+
+# Import your tennis logic anywhere:
+python -c "from tennis_backend.tennis_game import award_point_to_player"
+
+# Run the server from any directory:
+uvicorn tennis_backend.main:app --reload
+
+# Clean, professional imports throughout:
+from tennis_backend.main import app
+from tennis_backend.tennis_game import award_point_to_player
+```
 
 ## API Endpoints
 
@@ -114,27 +161,18 @@ The FastAPI backend provides the following endpoints:
 - `POST /players/{player_name}/increment` - Increment a player's score
 - `POST /players/reset` - Reset all player scores to 0
 
-## Usage
+## 🎮 Usage
 
-1. Open your browser and go to `http://localhost:3000`
-2. You'll see two player cards: one for Alcaraz and one for Sinner
-3. Click the points button next to any player to increment their score
-4. Use the "Reset All Scores" button to reset both players' scores to zero
+1. **Start both servers** (backend and frontend)
+2. **Open your browser** and go to `http://localhost:3000`
+3. **Play tennis**: Click point buttons to increment scores for Alcaraz and Sinner
+4. **Watch the magic**: Automatic deuce/advantage handling, set progression, tiebreaks
+5. **Reset anytime**: Use the reset button to start a new match
 
-## Development
-
-### Backend Development
-
-- The backend uses in-memory storage for simplicity
-- API documentation is available at `http://localhost:8000/docs` when the server is running
-
-### Frontend Development
-
-- The React app uses functional components with hooks
-- Axios is used for API communication
-- The UI is fully responsive and includes loading states and error handling
+**API Documentation**: Visit `http://localhost:8000/docs` for interactive API docs
 
 
-## License
 
-This project is open source and available under the MIT License. 
+## 📄 License
+
+This project is open source and available under the MIT License.

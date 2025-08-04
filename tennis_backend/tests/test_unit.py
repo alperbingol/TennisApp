@@ -4,13 +4,7 @@ Tests individual utility functions in isolation.
 """
 
 import pytest
-import sys
-import os
-
-# Add the backend directory to sys.path so we can import modules
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from tennis_game import get_opponent_from_players
+from tennis_backend.tennis_game import get_opponent_from_players
 
 
 def test_get_opponent_from_players():

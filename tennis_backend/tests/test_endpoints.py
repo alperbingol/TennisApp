@@ -1,12 +1,6 @@
 from fastapi import responses
 from fastapi.testclient import TestClient
-import sys
-import os
-
-# Add the backend directory to sys.path so we can import modules
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from main import app
+from tennis_backend.main import app
 
 # Create a test client
 client = TestClient(app)

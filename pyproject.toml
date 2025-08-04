@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tennis-backend"
+version = "0.1.0"
+description = "Professional tennis scoring API with FastAPI"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "Tennis App Developer"},
+]
+
+# Main dependencies - what your app needs to run
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.0.0",
+]
+
+# Optional dependencies for development
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "httpx>=0.25.0",          # For testing FastAPI endpoints
+    "pytest-asyncio>=0.21.0", # For async tests
+]
+
+# Tell setuptools where to find our package
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tennis_backend*"]  # Include tennis_backend directory as package
+exclude = ["tennis_backend.tests*"]    # Don't include tests in installed package
