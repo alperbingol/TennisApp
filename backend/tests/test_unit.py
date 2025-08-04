@@ -1,36 +1,63 @@
-import pytest
-from main import get_opponent, players_data
+"""
+Updated unit tests for helper functions.
+Tests individual utility functions in isolation.
+"""
 
-def test_get_opponent_returns_correct_player():
-    """Unit test: get_opponent should return the other player's name"""
+import pytest
+import sys
+import os
+
+# Add the backend directory to sys.path so we can import modules
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from tennis_game import get_opponent_from_players
+
+
+def test_get_opponent_from_players():
+    """Unit test: get_opponent_from_players should return the other player's name"""
+    
+    # Create test players data
+    test_players = {
+        "Alcaraz": {"name": "Alcaraz"},
+        "Sinner": {"name": "Sinner"}
+    }
     
     # Test: When given "Alcaraz", should return "Sinner"
-    opponent = get_opponent("Alcaraz")
+    opponent = get_opponent_from_players(test_players, "Alcaraz")
     assert opponent == "Sinner"
     
     # Test: When given "Sinner", should return "Alcaraz"  
-    opponent = get_opponent("Sinner")
+    opponent = get_opponent_from_players(test_players, "Sinner")
     assert opponent == "Alcaraz"
 
-def test_get_opponent_with_modified_players_data():
-    """Unit test: get_opponent should work with different player data"""
+
+def test_get_opponent_with_multiple_players():
+    """Unit test: get_opponent_from_players should work with more than 2 players"""
     
-    # Temporarily modify players_data for this test
-    original_data = players_data.copy()
+    # Create test data with 3 players
+    test_players = {
+        "Alcaraz": {"name": "Alcaraz"},
+        "Sinner": {"name": "Sinner"},
+        "Federer": {"name": "Federer"}
+    }
     
-    try:
-        # Add a third player temporarily
-        players_data["Federer"] = {"name": "Federer"}
-        
-        # Should still work with original players
-        assert get_opponent("Alcaraz") == "Sinner"
-        assert get_opponent("Sinner") == "Alcaraz"
-        
-        # But now Alcaraz could get Federer (first non-Alcaraz player found)
-        opponent = get_opponent("Alcaraz")
-        assert opponent in ["Sinner", "Federer"]
-        
-    finally:
-        # Restore original data
-        players_data.clear()
-        players_data.update(original_data)
+    # Should return first non-current player found
+    opponent = get_opponent_from_players(test_players, "Alcaraz")
+    assert opponent in ["Sinner", "Federer"]
+    assert opponent != "Alcaraz"
+
+
+def test_get_opponent_edge_cases():
+    """Unit test: Test edge cases for get_opponent_from_players"""
+    
+    # Test with minimal data
+    test_players = {
+        "Player1": {"name": "Player1"},
+        "Player2": {"name": "Player2"}
+    }
+    
+    opponent = get_opponent_from_players(test_players, "Player1")
+    assert opponent == "Player2"
+    
+    opponent = get_opponent_from_players(test_players, "Player2")  
+    assert opponent == "Player1"

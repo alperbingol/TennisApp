@@ -4,7 +4,14 @@ from pydantic import BaseModel
 from typing import Dict, Optional, List
 import json
 import os
-from .tennis_game import award_point_to_player, get_opponent_from_players
+import sys
+from pathlib import Path
+
+# Add the current directory to Python path for imports
+current_dir = Path(__file__).parent
+sys.path.insert(0, str(current_dir))
+
+from tennis_game import award_point_to_player, get_opponent_from_players
 
 app = FastAPI(title="Tennis App API", version="1.0.0")
 

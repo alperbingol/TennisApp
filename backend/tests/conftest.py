@@ -1,7 +1,10 @@
 import pytest
-from main import players_data
+import sys
+import os
 
-import pytest
+# Add the backend directory to sys.path so we can import modules
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from main import players_data
 
 #beforeEach
