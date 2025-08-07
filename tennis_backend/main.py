@@ -12,8 +12,7 @@ app = FastAPI(title="Tennis App API", version="1.0.0")
 # Enable CORS for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://tennis-app-zftm.vercel.app/", "https://tennis-app-zftm-o1l3h66yk-alperbingol97-3100s-projects.vercel.app/"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
