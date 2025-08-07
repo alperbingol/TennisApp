@@ -10,7 +10,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_BASE_URL = 'http://localhost:8000';
+  //const API_BASE_URL = 'http://localhost:8000';
+  const API_BASE_URL = 'https://tennisapp-izif.onrender.com/'
 
   const winner = players.find(player => player.winner);
 
