@@ -1,65 +1,31 @@
-# Python Virtual Environments
-.venv/
-venv/
-env/
-ENV/
-
-# Python Bytecode and Cache
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
+.venv/
+venv/
 
-# Package Build Artifacts (IMPORTANT for your new package structure)
+# Package builds
 build/
 dist/
 *.egg-info/
-tennis_backend.egg-info/
 
-# Testing and Coverage
+# Testing
 .pytest_cache/
 .coverage
-htmlcov/
-.tox/
-coverage.xml
-*.cover
 
-# IDE and Editor Files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Environment and Configuration Files
+# Environment files
 .env
 .env.local
-.env.production
 *.log
 
-# Node.js dependencies (for frontend)
+# Node.js (frontend)
 node_modules/
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# OS Generated Files
-Thumbs.db
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-
-# Jupyter Notebooks (if you add any)
-.ipynb_checkpoints/
-
-# PyCharm
+# IDE files
+.vscode/
 .idea/
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# OS files
+.DS_Store
+Thumbs.db

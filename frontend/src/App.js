@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './App.css';
 import Loading from './components/loading';
@@ -10,17 +10,12 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  //const API_BASE_URL = 'http://localhost:8000';
-  const API_BASE_URL = 'https://tennisapp-izif.onrender.com'
+  // Environment-aware API URL: uses env var in production, localhost in development
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
   const winner = players.find(player => player.winner);
 
-  // Fetch players data on component mount
-  useEffect(() => {
-    fetchPlayers();
-  }, []);
-
-  const fetchPlayers = async () => {
+  const fetchPlayers = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${API_BASE_URL}/players`);
@@ -32,7 +27,12 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_BASE_URL]);
+
+  // Fetch players data on component mount
+  useEffect(() => {
+    fetchPlayers();
+  }, [fetchPlayers]);
 
   const incrementScore = async (playerName) => {
     if (winner) {

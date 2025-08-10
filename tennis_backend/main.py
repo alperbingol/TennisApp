@@ -7,18 +7,29 @@ import os
 
 from tennis_backend.tennis_game import award_point_to_player, get_opponent_from_players
 
+# Environment configuration
+APP_ENV = os.getenv("APP_ENV", "production")
+CORS_ALLOW_ALL = os.getenv("CORS_ALLOW_ALL", "true").lower() == "true"
+CORS_ALLOW_ORIGINS = os.getenv("CORS_ALLOW_ORIGINS", "*").split(",")
+
+# If allow all is false, use the specific origins
+if not CORS_ALLOW_ALL:
+    origins = [origin.strip() for origin in CORS_ALLOW_ORIGINS]
+else:
+    origins = ["*"]
+
 app = FastAPI(title="Tennis App API", version="1.0.0")
 
-# Enable CORS for React frontend
+# Enable CORS for React frontend - environment aware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# POINTS_SEQUENCE moved to tennis_game.py
+
 
 # Data model
 class PlayerScore(BaseModel):
