@@ -1,135 +1,51 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import React from 'react';
 import './App.css';
-import Loading from './components/loading';
-
+import Loading from './components/common/Loading';
+import ErrorMessage from './components/common/ErrorMessage';
+import WinnerBanner from './components/game/WinnerBanner';
+import PlayerCard from './components/game/PlayerCard';
+import ScoreboardHeader from './components/game/ScoreboardHeader';
+import Button from './components/common/Button';
+import useGameData from './hooks/useGameData';
 
 
 function App() {
-  const [players, setPlayers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Environment-aware API URL: uses env var in production, localhost in development
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-
+  // All business logic now comes from our custom hook!
+  const { players, loading, error, incrementScore, resetScores } = useGameData();
   const winner = players.find(player => player.winner);
-
-  const fetchPlayers = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${API_BASE_URL}/players`);
-      setPlayers(response.data);
-      setError(null);
-    } catch (err) {
-      setError('Failed to fetch players data. Make sure the backend is running.');
-      console.error('Error fetching players:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [API_BASE_URL]);
-
-  // Fetch players data on component mount
-  useEffect(() => {
-    fetchPlayers();
-  }, [fetchPlayers]);
-
-  const incrementScore = async (playerName) => {
-    if (winner) {
-      setError('Match already has a winner! Please reset to start a new match.');
-      return;
-    }
-    try {
-      await axios.post(`${API_BASE_URL}/players/${playerName}/increment`);
-      // Fetch the full updated player list after increment
-      const response = await axios.get(`${API_BASE_URL}/players`);
-      setPlayers(response.data);
-    } catch (err) {
-      setError(`Failed to increment score for ${playerName}`);
-      console.error('Error incrementing score:', err);
-    }
-  };
-
-  const resetScores = async () => {
-    try {
-      const response = await axios.post(`${API_BASE_URL}/players/reset`);
-      setPlayers(response.data);
-      setError(null);
-    } catch (err) {
-      setError('Failed to reset scores');
-      console.error('Error resetting scores:', err);
-    }
-  };
-
-
 
   if (loading) {
     return <Loading />;
   }
 
- 
-
   return (
     <div className="tennis-app">
       <h1 className="app-title">🎾 Tennis App</h1>
       
-      {error && (
-        <div className="error">
-          {error}
-        </div>
-      )}
+      <ErrorMessage message={error}/>
 
-      {winner && <div>Winner: {winner.name}</div>}
+      <WinnerBanner winner={winner} />
 
-      <div className="scoreboard-header">
-        <span className="header-name"></span>
-        {/* Render set headers dynamically */}
-        {Array.from({ length: Math.max(...players.map(p => p.sets.length)) || 1 }).map((_, idx) => (
-          <span key={idx} className="header-set">Set {idx + 1}</span>
-        ))}
-        <span className="header-games">Games</span>
-        <span className="header-points">Points</span>
-      </div>
+      <ScoreboardHeader maxSets={Math.max(...players.map(p => p.sets.length)) || 1} />
 
       <div className="players-container">
         {players.map((player) => (
-          <div key={player.name} className="player-card">
-            <div className="player-info">
-              <span className="player-name">{player.name}</span>
-              {/* Render finished sets */}
-              {Array.from({ length: Math.max(...players.map(p => p.sets.length)) || 1 }).map((_, idx) => (
-                <span key={idx} className="player-set-square">
-                  {player.sets[idx] !== undefined ? player.sets[idx] : ''}
-                </span>
-              ))}
-              <span className="player-games-square">{player.current_set_games}</span>
-              <span 
-                className="player-score"
-                onClick={() => incrementScore(player.name)}
-                style={{ cursor: 'pointer' }}
-                title="Click to add a point"
-              >
-                {player.tiebreak
-                  ? player.tiebreak_points
-                  : player.advantage
-                    ? 'Ad'
-                    : (players.some(p => p.advantage) ? '' : player.points)
-                }
-              </span>
-            </div>
-          </div>
+          <PlayerCard 
+            key={player.name}
+            player={player}
+            maxSets={Math.max(...players.map(p => p.sets.length)) || 1}
+            onScoreIncrement={incrementScore}
+            players={players}
+          />
         ))}
       </div>
 
-       
-  
-
-      <button 
+      <Button 
         className="reset-btn"
         onClick={resetScores}
       >
         Reset All Scores
-      </button>
+      </Button>
 
  
     </div>
