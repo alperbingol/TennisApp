@@ -19,8 +19,8 @@ function Hello(){
                     <input type="text" placeholder="Enter Player 2 name" />
                 </div>
                 
-                <button onClick={() => navigate("/game")}>Start Game
-
+                <button onClick={() => navigate("/game")}>
+                    Start Game
                 </button>
             </div>
         </div>
