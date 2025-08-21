@@ -11,6 +11,8 @@ A professional tennis scoring API built with FastAPI and modern Python packaging
 - **Professional API**: Clean FastAPI endpoints for all tennis operations
 
 ### 🌐 Web Interface  
+- **Multi-Page Navigation**: Modern React Router with landing page and game routes
+- **Player Registration**: Collect player names before starting the game
 - **Real-time Score Tracking**: Click buttons to increment scores for each player
 - **Modern UI**: Beautiful gradient design with smooth animations
 - **Reset Functionality**: Reset all scores to zero with one click
@@ -31,6 +33,7 @@ A professional tennis scoring API built with FastAPI and modern Python packaging
 
 ### Frontend  
 - **React**: JavaScript library for building user interfaces
+- **React Router**: Modern client-side routing with BrowserRouter
 - **Axios**: HTTP client for API communication
 - **CSS3**: Modern styling with gradients and animations
 
@@ -56,9 +59,17 @@ TennisApp/
 │       └── conftest.py            # pytest configuration
 ├── frontend/                   # React application
 │   ├── src/
-│   │   ├── App.js             # Main React component
+│   │   ├── App.js             # Main React component with routing
 │   │   ├── App.css            # Styling
-│   │   └── index.js           # React entry point
+│   │   ├── index.js           # React entry point
+│   │   ├── components/
+│   │   │   ├── start/
+│   │   │   │   └── start.js   # Landing page with player registration
+│   │   │   ├── game/
+│   │   │   │   └── Game.js    # Main tennis game component
+│   │   │   └── common/        # Reusable UI components
+│   │   └── hooks/
+│   │       └── useGameData.js # Custom hook for game state management
 │   └── package.json           # Frontend dependencies
 └── README.md                  # This file
 ```
@@ -165,9 +176,15 @@ The FastAPI backend provides the following endpoints:
 
 1. **Start both servers** (backend and frontend)
 2. **Open your browser** and go to `http://localhost:3000`
-3. **Play tennis**: Click point buttons to increment scores for Alcaraz and Sinner
-4. **Watch the magic**: Automatic deuce/advantage handling, set progression, tiebreaks
-5. **Reset anytime**: Use the reset button to start a new match
+3. **Landing Page**: Enter player names for both players
+4. **Start Game**: Click "Start Game" to navigate to the tennis match
+5. **Play tennis**: Click point buttons to increment scores for your players
+6. **Watch the magic**: Automatic deuce/advantage handling, set progression, tiebreaks
+7. **Reset anytime**: Use the reset button to start a new match
+
+**Routes:**
+- `/` - Landing page with player registration
+- `/game` - Main tennis game interface
 
 **API Documentation**: Visit `http://localhost:8000/docs` for interactive API docs
 
