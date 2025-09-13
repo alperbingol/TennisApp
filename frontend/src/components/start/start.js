@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Hello(){
+function HomepageUserLogin(){
 
-    const [player1Name, setPlayer1Name] = useState('');
-    const [player2Name, setPlayer2Name] = useState('');
+    const [players, setPlayers] = useState({ player1: '', player2: ''});
     
     const navigate = useNavigate();
 
     const handleStartGame = () => {
 
-        if (player1Name.trim() && player2Name.trim()){
+        if (players.player1.trim() && players.player2.trim()){
             navigate('/game', {
                 state: {
-                    player1: player1Name.trim(),
-                    player2: player2Name.trim()
+                    player1: players.player1.trim(),
+                    player2: players.player2.trim()
                 },
                 replace: true
             });
@@ -33,8 +32,8 @@ function Hello(){
                     <input 
                         type="text" 
                         placeholder="Enter Player 1 name"
-                        onChange={(e)=> setPlayer1Name(e.target.value)}
-                        value={player1Name} />
+                        onChange={(e)=> setPlayers( prev =>({ ...prev, player1: e.target.value }))}
+                        value={players.player1} />
                 </div>
                 
                 <div>
@@ -42,8 +41,8 @@ function Hello(){
                     <input 
                         type="text" 
                         placeholder="Enter Player 2 name"
-                        onChange={(e)=> setPlayer2Name(e.target.value)}
-                        value={player2Name} />
+                        onChange={(e)=> setPlayers( prev => ({ ...prev, player2: e.target.value }))}
+                        value={players.player2} />
                 </div>
                 
                 <button onClick={handleStartGame}>
@@ -54,4 +53,4 @@ function Hello(){
     )
 }
 
-export default Hello;
+export default HomepageUserLogin;

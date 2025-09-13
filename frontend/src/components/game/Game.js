@@ -10,14 +10,20 @@ import useGameData from '../../hooks/useGameData';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-function Game() {
+function MainScoreBoard() {
   // All business logic now comes from our custom hook!
   const { players, loading, error, incrementScore, resetScores } = useGameData();
   const winner = players.find(player => player.winner);
 
   const nav = useNavigate();
 
-  const {state} = useLocation();
+  const {state}= useLocation();
+  const location = useLocation()
+ console.log(location.search)
+
+
+  console.log(state)
+
   const customNames = [
     state?.player1.trim(),
     state?.player2.trim()
@@ -71,4 +77,4 @@ function Game() {
   );
 }
 
-export default Game; 
+export default MainScoreBoard; 
