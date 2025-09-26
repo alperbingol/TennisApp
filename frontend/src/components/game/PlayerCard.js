@@ -1,4 +1,4 @@
-function PlayerCard({ player, maxSets, onScoreIncrement, players }) {
+function PlayerCard({ player, maxSets, onScoreIncrement, players, displayName }) {
   const displayPoints = () => {
     if (player.tiebreak) {
       return player.tiebreak_points;
@@ -15,8 +15,7 @@ function PlayerCard({ player, maxSets, onScoreIncrement, players }) {
   return (
     <div className="player-card">
       <div className="player-info">
-        <span className="player-name">{player.name}</span>
-        
+        <span className="player-name">{displayName ?? player.name}</span>
         {/* Render finished sets */}
         {Array.from({ length: maxSets || 1 }).map((_, idx) => (
           <span key={idx} className="player-set-square">

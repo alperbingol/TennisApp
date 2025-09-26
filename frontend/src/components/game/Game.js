@@ -7,12 +7,28 @@ import PlayerCard from './PlayerCard';
 import ScoreboardHeader from './ScoreboardHeader';
 import Button from '../common/Button';
 import useGameData from '../../hooks/useGameData';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
-function Game() {
+function MainScoreBoard() {
   // All business logic now comes from our custom hook!
   const { players, loading, error, incrementScore, resetScores } = useGameData();
   const winner = players.find(player => player.winner);
+
+  const nav = useNavigate();
+
+  const {state}= useLocation();
+  const location = useLocation()
+ console.log(location.search)
+
+
+  console.log(state)
+
+  const customNames = [
+    state?.player1.trim(),
+    state?.player2.trim()
+  ];
+
 
   if (loading) {
     return <Loading />;
@@ -37,13 +53,14 @@ function Game() {
       <ScoreboardHeader maxSets={Math.max(...players.map(p => p.sets.length)) || 1} />
 
       <div className="players-container">
-        {players.map((player) => (
+        {players.map((player, idx) => (
           <PlayerCard 
             key={player.name}
             player={player}
             maxSets={Math.max(...players.map(p => p.sets.length)) || 1}
             onScoreIncrement={incrementScore}
             players={players}
+            displayName={customNames[idx] || player.name}
           />
         ))}
       </div>
@@ -55,9 +72,9 @@ function Game() {
         Reset All Scores
       </Button>
 
- 
+      <Button onClick={()=>nav('/', {replace:true})}> Home </Button>
     </div>
   );
 }
 
-export default Game; 
+export default MainScoreBoard; 
