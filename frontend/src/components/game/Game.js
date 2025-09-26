@@ -18,11 +18,7 @@ function MainScoreBoard() {
   const nav = useNavigate();
 
   const {state}= useLocation();
-  const location = useLocation()
- console.log(location.search)
 
-
-  console.log(state)
 
   const customNames = [
     state?.player1.trim(),
